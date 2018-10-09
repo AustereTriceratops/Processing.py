@@ -1,0 +1,35 @@
+width = 1600
+height = 1200
+
+xvalue = range(-200,200,20)
+yvalue = [0]*20
+yvaluei = yvalue
+yvaluef = range(-200,200,20)
+t=0.0
+
+def setup():
+    size(width,height)
+    
+def nextframe():
+    global yvalue, yvaluei, yvaluef, t
+    s=0 
+    while s<19:
+        yvalue[s] = yvaluei[s] + 2*(yvaluei[s] - yvaluef[s])*(t**2)*(t-1.5)  #bezier curve in time
+        s+=1
+
+def draw():
+    translate(width/2, height/2)
+    global xvalue, yvalue, yvaluei, yvaluef, t
+    background(255)
+    smooth()
+    strokeWeight(2)
+    fill(180)
+    frameRate(40)
+    i=0
+    while i<19:
+        ellipse(xvalue[i],yvalue[i],20,20)
+        i+=1
+    if t<1.0:
+        nextframe()
+        
+    t+= 0.01
