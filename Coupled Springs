@@ -1,0 +1,76 @@
+width = 1300
+height = 900
+
+t = 0.0
+a1 = 0
+
+m1 = 13.0
+r1 = 190.0
+r1_v = 0
+
+m2 = 9.0
+r2 = 90.0
+r2_v = 4.0
+
+a1_v = -0.00
+
+a1_a = 0.0
+
+
+g = 0.7
+w=0
+
+
+
+
+
+
+def setup():
+    size(width,height)
+    global path
+    path = createGraphics(width,height)
+    path.beginDraw()
+    path.background(255)
+    path.smooth(8)
+    path.endDraw()
+
+def draw():
+    global r1, r1_v, r2, r2_v, t
+    frameRate(60)
+    fill(160)
+    image(path,0,0)
+    strokeWeight(2)
+
+    
+    
+    
+    
+    #calculating new position
+    r1_a = -1.7*(r1-250) + 0.7*(r2-120) + g
+    r1_v += 0.1*r1_a
+    r1 += 0.1*r1_v
+    r2_a = -0.7*(r2-120) + g
+    r2_v += 0.1*r2_a
+    r2 += 0.1*r2_v
+    
+    #translates into cartesian coordinates
+    x1 = width/2 
+    y1 = 200 + r1
+    x2 = width/2
+    y2 = y1 + r2
+    
+
+    
+    #renders the pendulums in their proper spots
+    line(650,200,x1,y1)
+    line(x1,y1,x2,y2)
+    ellipse(x1,y1,30,30)
+    ellipse(x2,y2,30,30)
+    
+
+    
+    '''if t % 600 == 0:
+        saveFrame('dp-####.png')'''
+    
+    
+    t+=1
