@@ -1,0 +1,53 @@
+def setup():
+    size(1200,800)
+    background(255)
+    
+x1 = 700.0
+y1 = 400.0
+m1 = 20.0
+x1_v = 0.0
+y1_v = 10.0
+
+x2 = 600.0
+y2 = 400.0
+m2 = 400.0
+x2_v = 0.0
+y2_v = -0.50
+
+t=0
+    
+def draw():
+    global x1,y1,x2,y2,m1,m2,x1_v,y1_v,x2_v,y2_v,theta,t
+    s = 0.1
+    background(255)
+    
+    x_d = (x1-x2)/5
+    y_d = (y1-y2)/5
+    rsquared = (x_d)**2 + (y_d)**2
+    theta = atan((y_d)/(x_d)) 
+    if x_d<0:
+        x1_a = (m2/rsquared)*cos(theta)
+        y1_a = (m2/rsquared)*sin(theta)
+        x2_a = -(m1/rsquared)*cos(theta)
+        y2_a = -(m1/rsquared)*sin(theta)
+    elif x_d>=0:
+        x1_a = -(m2/rsquared)*cos(theta)
+        y1_a = -(m2/rsquared)*sin(theta)
+        x2_a = (m1/rsquared)*cos(theta)
+        y2_a = (m1/rsquared)*sin(theta)
+    theta_prev = theta
+    
+    strokeWeight(3)
+    ellipse(x1,y1,30,30)
+    ellipse(x2,y2,30,30)
+    
+    x1_v += s*x1_a
+    y1_v += s*y1_a
+    x2_v += s*x2_a
+    y2_v += s*y2_a
+    x1 += s*x1_v
+    y1 += s*y1_v
+    x2 += s*x2_v
+    y2 += s*y2_v
+    
+    t+=1
