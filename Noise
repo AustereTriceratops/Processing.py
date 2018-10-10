@@ -1,0 +1,49 @@
+import random
+
+width = 1200
+height = 800
+
+def setup():
+    size(width,height,P3D)
+    background(255)
+    noLoop()
+    
+scl=5
+
+seedmap = [255]*(height/scl)
+for a in range(height/scl):
+    seedmap[a] = [255]*(width/scl)
+    
+for i in range(0,width/scl):
+    for j in range(0,height/scl):
+        seedmap[j][i]=random.randint(0,255)
+        
+noisemap = [0]*(height/scl)
+for b in range(height/scl):
+    noisemap[b] = [0]*(width/scl)
+    
+for i in range(0,width/scl):
+    for j in range(0,height/scl):
+        noisemap[j][i]=0
+        h=0
+        while h<5:
+            g=0
+            while g<5:
+                noisemap[j][i] += (seedmap[(j-g-2)%(height/scl)][(i-h-2)%(width/scl)])/25.0
+                g+=1
+            h+=1
+            
+  
+        
+def draw():
+    '''translate(0,50,-80)
+    rotateX(PI/3.0)'''
+    x=0
+    while x<width/scl:
+        y=0
+        while y<height/scl:
+            fill(noisemap[y][x])
+            noStroke()
+            rect(x*scl,y*scl,scl,scl)
+            y+=1
+        x+=1
