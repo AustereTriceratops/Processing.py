@@ -1,0 +1,38 @@
+import random
+
+width = 1300
+height = 800
+
+class particle:
+    def __init__(self):
+        self.x = random.randint(0,width)
+        self.y = random.randint(0,height)
+        self.xv = random.randint(-10,10)
+        self.yv = random.randint(-10,10)
+   
+t=0
+n=800    
+gas = [0]*n
+for i in range(0,n,1):
+    gas[i] = particle()
+
+
+def setup():
+    size(width,height)
+    smooth(8)
+    
+def draw():
+    global t
+    
+    background(255)
+    fill(0)
+    for i in range(0,n,1):
+        gas[i].x += 0.1*gas[i].xv
+        gas[i].y += 0.1*gas[i].yv
+        if gas[i].x <=0 or gas[i].x >= width:
+            gas[i].xv = -gas[i].xv
+        if gas[i].y <=0 or gas[i].y >= height:
+            gas[i].yv = -gas[i].yv
+        ellipse(gas[i].x,gas[i].y,2,2)
+        
+    t+=1
