@@ -1,0 +1,112 @@
+width = 1300
+height = 900
+
+t = 0.0
+a1 = 0
+s = 1
+
+m1 = 13.0
+r1 = 190.0
+r1_v = 0
+
+m2 = 9.0
+r2 = 90.0
+r2_v = 4.0
+
+m3 = 2.0
+r3 = 140.0
+r3_v = -0.2
+
+a1_v = -0.00
+
+a1_a = 0.0
+
+
+g = 0.7
+w=0
+
+
+
+
+
+
+def setup():
+    size(width,height)
+    global path
+    path = createGraphics(3000,height)
+    path.beginDraw()
+    path.background(255)
+    path.smooth(8)
+    path.endDraw()
+    
+    x1 = 1000 
+    y1 = 200 + r1
+    x2 = 1000
+    y2 = y1 + r2
+    x3 = 1000
+    y3 = y2 + r3
+
+def draw():
+    global r1, r1_v, r2, r2_v, r3, r3_v, t, y1,y2,x2,x1,x3,y3
+    frameRate(60)
+    fill(160)
+    image(path,-s*t,0)
+    strokeWeight(2)
+    
+    
+    #saving previous points
+    if t>1:
+        y1_prev = y1
+        y2_prev = y2
+        y3_prev = y3
+        
+        x1_prev = x1 -s
+        x2_prev = x2 -s
+        x3_prev = x3 -s
+    
+    
+    #calculating new position
+    r1_a = -1.7*(r1-250) + 0.7*(r2-120) + g
+    r1_v += 0.1*r1_a
+    r1 += 0.1*r1_v
+    r2_a = -0.7*(r2-120) +3.4*(r3-70) + g
+    r2_v += 0.1*r2_a
+    r2 += 0.1*r2_v
+    r3_a = -3.4*(r3-70) + g
+    r3_v += 0.1*r3_a
+    r3 += 0.1*r3_v    
+    
+    #translates into cartesian coordinates
+    x1 = 1000 
+    y1 = 200 + r1
+    x2 = 1000
+    y2 = y1 + r2
+    x3 = 1000
+    y3 = y2 + r3
+   
+    
+    #renders the pendulums in their proper spots
+    line(1000,200,x1,y1)
+    line(x1,y1,x2,y2)
+    line(x2,y2,x3,y3)
+    ellipse(x1,y1,30,30)
+    ellipse(x2,y2,30,30)
+    ellipse(x3,y3,30,30)
+    
+    #if t>1:
+    #    line(x2_prev,y2_prev,x2,y2)
+    
+    path.beginDraw()
+    path.strokeWeight(3)
+    path.stroke(0,200)
+    if t>1:
+        path.line(x2_prev +s*t,y2_prev,x2 + s*(t),y2)
+        #path.stroke(240,30,30)
+        #path.line(x3_prev +s*t,y3_prev,x3 + s*(t),y3)
+    path.endDraw()
+    
+    '''if t % 600 == 0:
+        saveFrame('dp-####.png')'''
+    
+    
+    t+=1
