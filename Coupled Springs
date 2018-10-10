@@ -3,6 +3,7 @@ height = 900
 
 t = 0.0
 a1 = 0
+s = 2
 
 m1 = 13.0
 r1 = 190.0
@@ -28,21 +29,32 @@ w=0
 def setup():
     size(width,height)
     global path
-    path = createGraphics(width,height)
+    path = createGraphics(3000,height)
     path.beginDraw()
     path.background(255)
     path.smooth(8)
     path.endDraw()
+    
+    x1 = 1000 
+    y1 = 200 + r1
+    x2 = 1000
+    y2 = y1 + r2
 
 def draw():
-    global r1, r1_v, r2, r2_v, t
+    global r1, r1_v, r2, r2_v, t, y1,y2,x2,x1
     frameRate(60)
     fill(160)
-    image(path,0,0)
+    image(path,-s*t,0)
     strokeWeight(2)
-
     
     
+    #saving previous points
+    if t>1:
+        y1_prev = y1
+        y2_prev = y2
+        
+        x1_prev = x1 -s
+        x2_prev = x2 -s
     
     
     #calculating new position
@@ -53,21 +65,30 @@ def draw():
     r2_v += 0.1*r2_a
     r2 += 0.1*r2_v
     
+    
     #translates into cartesian coordinates
-    x1 = width/2 
+    x1 = 1000 
     y1 = 200 + r1
-    x2 = width/2
+    x2 = 1000
     y2 = y1 + r2
     
-
+   
     
     #renders the pendulums in their proper spots
-    line(650,200,x1,y1)
+    line(1000,200,x1,y1)
     line(x1,y1,x2,y2)
     ellipse(x1,y1,30,30)
     ellipse(x2,y2,30,30)
     
-
+    #if t>1:
+    #    line(x2_prev,y2_prev,x2,y2)
+    
+    path.beginDraw()
+    path.strokeWeight(3)
+    path.stroke(0,200)
+    if t>1:
+        path.line(x2_prev +s*t,y2_prev,x2 + s*(t),y2)
+    path.endDraw()
     
     '''if t % 600 == 0:
         saveFrame('dp-####.png')'''
