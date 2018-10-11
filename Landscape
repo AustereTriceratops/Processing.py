@@ -1,0 +1,36 @@
+width = 1000
+height = 800
+
+res = 8
+noiseScl = 0.03
+noiseDetail(5, 0.42) #LOD, Lacunarity
+xnodes = width/res
+ynodes = height/res
+mesh = [0]*ynodes
+for i in range(0,ynodes,1):
+    mesh[i] = [0]*xnodes
+    
+meshHeight = mesh
+for i in range(0,ynodes,1):
+    for j in range(0,xnodes,1):
+        meshHeight[i][j] = (noise(noiseScl*i,noiseScl*j))**2
+
+
+def setup():
+    size(width,height, P3D)
+    background(170)
+
+
+def draw():
+    rotateX(PI/3)
+    ambientLight(160,160,160)
+    directionalLight(220,220,220,1,0,-0.4)
+    translate(0,-300,-500)
+    for i in range(0,ynodes-1,1):
+        beginShape(TRIANGLE_STRIP)
+        fill(240)
+        stroke(255,80)
+        for j in range(0,xnodes,1):
+            vertex(j*res,i*res,500*meshHeight[i][j])
+            vertex(j*res,(i+1)*res,500*meshHeight[i+1][j])
+        endShape()
