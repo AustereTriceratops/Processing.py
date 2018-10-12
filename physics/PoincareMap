@@ -1,3 +1,9 @@
+'''
+A program in Processing.py which generates a Poincare map for the duffing equation. 
+The finished result looks like this: https://i.imgur.com/8lxzcyd.png
+'''
+
+
 phasex = [0]
 phasev = [0] #holds phase space coordinates
 
