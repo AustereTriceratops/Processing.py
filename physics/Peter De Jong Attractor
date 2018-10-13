@@ -1,0 +1,44 @@
+'''
+https://i.imgur.com/3sAAu5i.png
+'''
+
+x = [0.78]
+y = [0.34]
+
+f = 0
+xscl = 250.0
+yscl = 200.0
+        
+def graph(): 
+    domain = len(x)
+    j=0
+    fill(10,120)
+    stroke(10,80)
+    strokeWeight(0.2)
+    while j<domain-1:
+        ellipse(xscl*x[j],-yscl*y[j],0.7,0.7)
+        j+=1
+
+   
+def setup():
+    size(1300,800)
+    
+def draw():
+    global f, xc,yc, x,y
+    
+    a = 2.827
+    b = -1.736
+    c = 0.301
+    d = -1.9
+
+    translate(width/2, height/2-100)
+    background(255)
+    
+    if f>0:
+        x[f] = sin(a*y[f-1]) - cos(b*x[f-1])
+        y[f] = sin(c*x[f-1]) - cos(d*y[f-1])
+        graph()
+    x.append(0)
+    y.append(0)
+    
+    f+=1
