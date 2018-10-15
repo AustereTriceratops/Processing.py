@@ -2,10 +2,7 @@
 https://i.imgur.com/ftkDW20.png
 '''
 
-x = [0.78]
-y = [0.34]
-
-f = 0
+f = 1
 xscl = 250.0
 yscl = 200.0
         
@@ -22,23 +19,28 @@ def graph():
    
 def setup():
     size(1300,800)
+    noLoop()
+    
+a = 1.5
+b = 1.4
+c = -0.9
+d = 3.9
+    
+while f<100000:
+    x.append(0)
+    y.append(0)
+    x[f] = cos(a*x[f-1]**2 + b*y[f-1])
+    y[f] = sin(c*x[f-1] + d*y[f-1]**2)
+    f+=1
+    if f%100==0:
+        redraw()
+
     
 def draw():
     global f, xc,yc, x,y
     
-    a = 2.827
-    b = -1.736
-    c = 0.301
-    d = -1.9
 
-    translate(width/2, height/2-100)
+    translate(width/2, height/2)
     background(255)
     
-    if f>0:
-        x[f] = sin(a*y[f-1]) - cos(b*x[f-1])
-        y[f] = sin(c*x[f-1]) - cos(d*y[f-1])
-        graph()
-    x.append(0)
-    y.append(0)
-    
-    f+=1
+    graph()
