@@ -29,8 +29,8 @@ d = 3.9
 while f<100000:
     x.append(0)
     y.append(0)
-    x[f] = cos(a*x[f-1]**2 + b*y[f-1])
-    y[f] = sin(c*x[f-1] + d*y[f-1]**2)
+    x[f] = sin(a*y[f-1]) - cos(b*x[f-1])
+    y[f] = sin(c*x[f-1]) - cos(d*y[f-1])
     f+=1
     if f%100==0:
         redraw()
