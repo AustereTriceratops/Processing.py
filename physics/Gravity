@@ -12,7 +12,7 @@ x2 = 600.0
 y2 = 400.0
 m2 = 400.0
 x2_v = 0.0
-y2_v = -0.50
+y2_v = -0.50  #Initial parameter values
 
 t=0
     
@@ -21,7 +21,7 @@ def draw():
     s = 0.1
     background(255)
     
-    x_d = (x1-x2)/5
+    x_d = (x1-x2)/5                            #Equations of motion
     y_d = (y1-y2)/5
     rsquared = (x_d)**2 + (y_d)**2
     theta = atan((y_d)/(x_d)) 
@@ -41,7 +41,7 @@ def draw():
     ellipse(x1,y1,30,30)
     ellipse(x2,y2,30,30)
     
-    x1_v += s*x1_a
+    x1_v += s*x1_a                       #Numerically integrating
     y1_v += s*y1_a
     x2_v += s*x2_a
     y2_v += s*y2_a
