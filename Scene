@@ -1,0 +1,48 @@
+'''
+
+'''
+
+
+def setup():
+    size(600,600,P3D)
+
+frames = 5
+endframe = 3
+t = [0]*frames
+timing = [80,70,80,80,80]
+s = 0
+q = 0
+p = 0
+
+def draw():
+    global t,s,p
+    
+    s = t[p]/80.0
+    q = -2*(s**2)*(s-1.5)
+    
+    
+    background(255)
+    translate(width/2,height/2,0)
+    noFill()
+    #frameRate(60)
+    
+    if p==0:
+        rotateY(2*PI*q)
+        rotateX(0.5*PI*q)
+    elif p==2:
+        rotateY(-0.3333*PI*q)
+        rotateX(PI*q)
+
+    box(20,20,20)
+    
+      
+    for j in range(0,frames,1):
+        if t[j]<timing[j]:
+            t[j] +=1
+            break
+        elif t[j]==timing[j]:
+            p+=1
+            if p==endframe:
+                noLoop()
+            t[j] +=1
+            break
