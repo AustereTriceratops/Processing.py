@@ -1,5 +1,5 @@
 '''
-A very rudimentary timing layout for planning out successive animations.
+A very rudimentary timing layout for rendering successive animations in Processing.py
 '''
 
 
@@ -12,7 +12,7 @@ t = [0]*frames
 timing = [80,70,80,80,80]
 s = 0
 q = 0
-p = 0
+p = 0    # this variable indexes which scene is currently "active"
 
 def draw():
     global t,s,p
@@ -36,7 +36,7 @@ def draw():
     box(20,20,20)
     
       
-    for j in range(0,frames,1):
+    for j in range(0,frames,1):  #updates time array
         if t[j]<timing[j]:
             t[j] +=1
             break
