@@ -3,60 +3,69 @@ A program in Processing.py which generates a Poincare map for the duffing equati
 The finished result looks like this: https://imgur.com/bbv3AMt.gif
 '''
 
-
-phasex = [0]
-phasev = [0] #holds phase space coordinates
-
+phasex = [0]*144       #phase space coordinates in time, velocity, and position
+phasev = [0]*144
+for i in range(0,144,1):
+    phasex[i] = [0]
+    phasev[i] = [0]
 
 f = 0
 s = 0
-w=0
+w = 0
+a = 0
 
-xscl = 600.0
-yscl = 90.0
+xscl = 300.0
+yscl = 120.0
 
-x = [0]
 xc = 1.0
-xc_v = -2.0
-        
-def graph(): 
-    domain = len(phasex)
-    j=0
-    fill(10,200)
-    stroke(10,200)
-    strokeWeight(1)
-    while j<domain:
-        ellipse(xscl*phasex[j],-yscl*phasev[j],1,1)
-        j+=1
+xc_v = -2.0   
 
-   
-   
-def setup():
-    size(1300,800)
-    
-    
-def draw():
-    global f, w, s, xc, xc_v, phasex, phasev
-    
+while f<1000000:
+    f+=1
     s = f/36.0
     t = s*PI
+    fmod = f % 144
     
-    xc_a = 8*cos(0.5*t) - 0.02*xc_v - xc -5*xc**3   #equations of motion
+    xc_a = 8*cos(0.5*t) - 0.02*xc_v - xc -5*xc**3
     xc_v += (PI/36.0)*xc_a
     xc += (PI/36.0)*xc_v
     
-    if f % 144 == 0:            #takes phase space coordinates whenever t = 4*pi
-        phasex[w] = xc
-        phasev[w] = xc_v
-        phasex.append(0)
-        phasev.append(0)
+    phasex[fmod][w] = xc
+    phasev[fmod][w] = xc_v
+    phasex[fmod].append(0)
+    phasev[fmod].append(0)
+    
+    if fmod==0:
         w+=1
+        redraw()
+        
+def keyPressed():
+    if keyCode == UP:
+        global a
+        a +=1
+        redraw()
+        
+        
+def graph(a): 
+    domain = len(phasex[a])
+    j=0
+    fill(10,180)
+    stroke(10,140)
+    strokeWeight(0.6)
+    while j<domain:
+        ellipse(xscl*phasex[a][j],-yscl*phasev[a][j],0.9,0.9)
+        j+=1
 
+
+def setup():
+    size(1300,800)
+    noLoop()
     
-    translate(width/2 - 800, height/2)
+    
+def draw():
+    translate(width/2, height/2)
     background(255)
-
-    graph()
-    #saveFrame('graph-###.png')
     
-    f+=1
+    graph(a%144)
+    
+    saveFrame('graph-###.png')
