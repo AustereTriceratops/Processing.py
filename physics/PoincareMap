@@ -44,6 +44,10 @@ def keyPressed():
         global a
         a +=1
         redraw()
+    if keyCode == DOWN:
+        global a
+        a -=1
+        redraw()
         
         
 def graph(a): 
