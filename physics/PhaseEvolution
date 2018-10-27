@@ -1,0 +1,84 @@
+phasex = [0]*2000  #coordinates
+phasev = [0]*2000
+g = [0]*2000     #colors
+b = [0]*2000
+for i in range(0,2000,1):
+    phasex[i] = i*0.0006
+    g[i] = 140 + 110*(i/2000.0)
+    b[i] = 250 - 110*(i/2000.0)
+
+global f,s
+f = 0
+s = 0
+w = 0
+a = 0
+
+xscl = 250.0
+yscl = 100.0
+
+xc = 1.0
+xc_v = -2.0
+
+'''while f<1000000:
+    global t,fmod
+    f+=1
+    s = f/36.0
+    t = s*PI
+    fmod = f % 144
+    
+    xc_a = 8*cos(0.5*t) - 0.02*xc_v - xc -5*xc**3
+    xc_v += (PI/36.0)*xc_a
+    xc += (PI/36.0)*xc_v
+    
+    if fmod %144 ==0:
+        phasex[w] = xc
+        phasev[w] = xc_v
+        phasex.append(0)
+        phasev.append(0)
+        w+=1
+        
+    if fmod==0:
+        redraw()'''
+        
+def keyPressed():
+    if keyCode == UP:
+        global f
+        f+=1
+        s = f/36.0
+        t = s*PI
+        fmod = f % 144
+        
+        for i in range(0,domain,1):
+            xc_a = 8*cos(0.5*t) - 0.02*phasev[i] - phasex[i] -5*phasex[i]**3
+            phasev[i] += (PI/36.0)*xc_a
+            phasex[i] += (PI/36.0)*phasev[i]
+            redraw()
+        
+        
+def graph(): 
+    global domain
+    domain = len(phasex)
+    j=0
+    #fill(10,180)
+    #stroke(10,140)
+    strokeWeight(0.6)
+    while j<domain:
+        fill(140,g[j],b[j])
+        stroke(140,g[j],b[j])
+        ellipse(xscl*phasex[j],-yscl*phasev[j],1.9,1.9)
+        #line(xscl*phasex[j],-yscl*phasev[j],xscl*phasex[j-1],-yscl*phasev[j-1])
+        j+=1
+
+
+def setup():
+    size(1300,800)
+    noLoop()
+    
+    
+def draw():
+    translate(width/2, height/2)
+    background(60)
+    
+    graph()
+    
+    #saveFrame('graph-###.png')
