@@ -1,5 +1,5 @@
 '''
-Plots several points in phase space and follows their chaotic evolution 
+Plots several points in phase space and follows their chaotic evolution though the Duffing equation
 '''
 
 phasex = [0]*2000  #coordinates
@@ -25,7 +25,7 @@ xc_v = -2.0
 
         
 def keyPressed():
-    if keyCode == UP:
+    if keyCode == UP:   #moves to the next frame
         global f
         f+=1
         s = f/36.0
@@ -37,7 +37,8 @@ def keyPressed():
             phasev[i] += (PI/36.0)*xc_a
             phasex[i] += (PI/36.0)*phasev[i]
             redraw()
-        
+     if keyCode == 32:     #spacebar
+        saveFrame('graph-###.png')
         
 def graph(): 
     global domain
@@ -50,7 +51,6 @@ def graph():
         fill(140,g[j],b[j])
         stroke(140,g[j],b[j])
         ellipse(xscl*phasex[j],-yscl*phasev[j],1.9,1.9)
-        #line(xscl*phasex[j],-yscl*phasev[j],xscl*phasex[j-1],-yscl*phasev[j-1])
         j+=1
 
 
@@ -64,5 +64,3 @@ def draw():
     background(60)
     
     graph()
-    
-    #saveFrame('graph-###.png')
