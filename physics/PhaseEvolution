@@ -1,6 +1,10 @@
+'''
+Plots several points in phase space and follows their chaotic evolution 
+'''
+
 phasex = [0]*2000  #coordinates
 phasev = [0]*2000
-g = [0]*2000     #colors
+g = [0]*2000        #colors
 b = [0]*2000
 for i in range(0,2000,1):
     phasex[i] = i*0.0006
