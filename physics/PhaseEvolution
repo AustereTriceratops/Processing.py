@@ -1,21 +1,21 @@
 '''
 Plots several points in phase space and follows their chaotic evolution though the Duffing equation
 '''
+p = 2000     # particle number
 
-phasex = [0]*2000  #coordinates
-phasev = [0]*2000
-g = [0]*2000        #colors
-b = [0]*2000
-for i in range(0,2000,1):
+phasex = [0]*p  #coordinates
+phasev = [0]*p
+g = [0]*p        #colors
+b = [0]*p
+for i in range(0,p,1):
     phasex[i] = i*0.0006
-    g[i] = 140 + 110*(i/2000.0)
-    b[i] = 250 - 110*(i/2000.0)
+    g[i] = 140 + 110*(i/float(p))
+    b[i] = 250 - 110*(i/float(p))
 
 global f,s
 f = 0
 s = 0
 w = 0
-a = 0
 
 xscl = 250.0
 yscl = 100.0
