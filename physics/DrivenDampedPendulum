@@ -56,13 +56,14 @@ def graph():
     while j<domain:
         fill(140,g[j],b[j])
         stroke(140,g[j],b[j])
-        ellipse(xscl*phasex[j],-yscl*phasev[j],1.9,1.9)
+        ellipse(xscl*phasex[j]-450,-yscl*phasev[j],1.9,1.9)
+        ellipse(xscl*phasex[j]+450,-yscl*phasev[j],1.9,1.9)
         #line(xscl*phasex[j],-yscl*phasev[j],xscl*phasex[j-1],-yscl*phasev[j-1])
         j+=1
 
 
 def setup():
-    size(900,800)
+    size(1800,800)
     noLoop()
     
     
