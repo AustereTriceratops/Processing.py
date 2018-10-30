@@ -1,0 +1,73 @@
+'''
+A simulation looks akin to this: https://imgur.com/a/6QgNY5P
+'''
+
+particles = 9000
+
+phasex = [0]*particles
+phasev = [0]*particles
+g = [0]*particles
+b = [0]*particles
+for i in range(0,particles,1):
+    phasex[i] = i*0.0005
+    g[i] = 140 + 110*(i/float(particles))
+    b[i] = 250 - 110*(i/float(particles))
+
+global f,s
+f = 0
+s = 0
+w = 0
+a = 0
+
+xscl = 150.0
+yscl = 40.0
+
+xc = 1.0
+xc_v = -2.0
+
+        
+def keyPressed():
+    if keyCode == UP:
+        global f
+        f+=1
+        s = f/36.0
+        t = s*PI
+        fmod = f % 144
+        
+        for i in range(0,domain,1):
+            xc_a = 6*cos(1.8*t) - 0.3*phasev[i] - 4*sin(1.3*phasex[i]) #- 4.1*phasex[i]**3 - 0.008*phasex[i-1]**3
+            phasev[i] += (PI/36.0)*xc_a
+            phasex[i] += (PI/36.0)*phasev[i]
+            if phasex[i] > 3:
+                phasex[i] -= 6
+            elif phasex[i] < -3:
+                phasex[i] += 6
+            redraw()
+    if keyCode == 32:   #spacebar
+        saveFrame('graph-###.png')
+        
+def graph(): 
+    global domain
+    domain = len(phasex)
+    j=0
+    #fill(10,180)
+    #stroke(10,140)
+    strokeWeight(0.6)
+    while j<domain:
+        fill(140,g[j],b[j])
+        stroke(140,g[j],b[j])
+        ellipse(xscl*phasex[j],-yscl*phasev[j],1.9,1.9)
+        #line(xscl*phasex[j],-yscl*phasev[j],xscl*phasex[j-1],-yscl*phasev[j-1])
+        j+=1
+
+
+def setup():
+    size(900,800)
+    noLoop()
+    
+    
+def draw():
+    translate(width/2, height/2)
+    background(60)
+    
+    graph()
