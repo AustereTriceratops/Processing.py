@@ -2,7 +2,7 @@
 A simulation looks akin to this: https://i.imgur.com/Q9i9yrl.png
 '''
 
-particles = 9000
+particles = 10000
 
 phasex = [0]*particles
 phasev = [0]*particles
@@ -16,24 +16,13 @@ for i in range(0,particles,1):
 global f,s
 f = 0
 s = 0
-w = 0
-a = 0
 
 xscl = 150.0
 yscl = 40.0
 
-xc = 1.0
-xc_v = -2.0
-
         
-def keyPressed():
-    if keyCode == UP:
-        global f
-        f+=1
-        s = f/72.0
-        t = s*PI
-        fmod = f % 144
-        
+def keyPressed():     #pressing the up arrow moves the simulation forward
+    if keyCode == UP:        
         for i in range(0,domain,1):
             xc_a = 6*cos(1.8*t) - 0.16*phasev[i] - 6*sin((PI/3)*phasex[i])
             phasev[i] += (PI/72.0)*xc_a
@@ -43,7 +32,7 @@ def keyPressed():
             elif phasex[i] < -3:
                 phasex[i] += 6
             redraw()
-    if keyCode == 32:   #spacebar
+    if keyCode == 32:   #spacebar saves an image
         saveFrame('graph-###.png')
         
 def graph(): 
