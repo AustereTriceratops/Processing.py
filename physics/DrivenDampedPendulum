@@ -11,7 +11,7 @@ b = [0]*particles
 for i in range(0,particles,1):
     phasex[i] = i*0.0005
     g[i] = 140 + 110*(i/float(particles))
-    b[i] = 250 - 110*(i/float(particles))
+    b[i] = 250 - 80*(i/float(particles))
 
 global f,s
 f = 0
@@ -22,7 +22,10 @@ yscl = 40.0
 
         
 def keyPressed():     #pressing the up arrow moves the simulation forward
-    if keyCode == UP:        
+    if keyCode == UP:  
+        global f    
+        f +=1
+        t = PI*f/72.0  
         for i in range(0,domain,1):
             xc_a = 6*cos(1.8*t) - 0.16*phasev[i] - 6*sin((PI/3)*phasex[i])
             phasev[i] += (PI/72.0)*xc_a
