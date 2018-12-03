@@ -1,0 +1,23 @@
+'''
+Reads off prime numbers from a .csv file and writes the gaps between them into a second .csv file. 
+The reader and writer objects are called separately for cleaner code at the cost of creating an intermediate array to store all the values.
+'''
+
+import csv
+
+gaps = []
+with open("primesTxt.csv", "r") as y:
+    reader = csv.reader(y, delimiter=',')
+    s=2
+    for row in reader:
+        if row != []:
+            gaps.append(int(row[0])-s)
+            s = int(row[0])
+    #print(gaps)
+
+with open("primeGaps.csv", "w") as z:
+    writer = csv.writer(z, delimiter=',')
+    n=1
+    for i in gaps:
+        writer.writerow([i,n])           #n acts as an index
+        n+=1
