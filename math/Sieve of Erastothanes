@@ -1,0 +1,45 @@
+'''
+A more optimized version of code I wrote a month ago.
+This uses the sieve of Erastothanes to find prime numbers below 5 million
+'''
+
+import time
+import csv
+
+t0 = time.time() #these are just for measuring efficiency
+
+max = 5000000
+ints = [0]*max
+primes = [0]*max
+multiples = [0]*max
+p = [2]
+
+s=0
+while s<max:
+    s+=1
+    ints[s-1] = s
+
+q=2
+while q<max/2:
+    s=2
+    while q*s <= max:
+        multiples[q*s - 1] = q*s      #finds all non-primes
+        s+=1
+    q+=1
+
+for i in ints:
+    primes[i-1] = ints[i-1] - multiples[i-1]      #takes the complement of the list of non-primes
+for i in primes:
+    if i != 0 and i>1:
+        p.append(i)
+
+t1 = time.time()
+
+with open("primesTxt2.csv", "w") as y:            #writes primes into a .csv file, this block can be deleted 
+    writer = csv.writer(y, delimiter=',')
+    n=0
+    for i in p:
+        writer.writerow([i,n])
+        n+=1
+
+print(t1-t0)
