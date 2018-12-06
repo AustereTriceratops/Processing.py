@@ -27,8 +27,7 @@ while i<max-2:
 
 for i in primes:
     s = (i-1)/2
-    for j in primes:
-        if s == j:
-            dprimes.append(i)
+    if s in primes:
+        dprimes.append(i)
     
 print(dprimes)
