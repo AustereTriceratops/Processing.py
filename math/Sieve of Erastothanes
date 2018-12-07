@@ -20,7 +20,7 @@ while q<max/2:
         multiples[q*s - 1] = 1
         s+=1
     q+=1
-    while multiples[q-1] == 1:   
+    while multiples[q-1] == 1:     #skips over values of q which are prime, saving computation time
         q+=1
 
 for i in integers:                 #takes the complement of the multiples to yield primes
