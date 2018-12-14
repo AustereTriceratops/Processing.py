@@ -1,6 +1,6 @@
 '''
 A more optimized version of code I wrote a month ago.
-This uses the sieve of Erastothanes to find prime numbers below 60 million
+This uses the sieve of Eratosthenes to find prime numbers below 60 million
 '''
 
 import time
