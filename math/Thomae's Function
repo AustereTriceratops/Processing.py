@@ -1,0 +1,24 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+depth = 200
+set = range(1,depth+1,1)
+x = []
+y = []
+
+
+i=0
+while i<depth:
+    j=0
+    while j<i:
+        if np.gcd(set[i], set[j]) != 1 and set[j]>1:
+            j+=1
+        else:
+            x.append(float(set[j])/set[i])
+            y.append(1.0/set[i])
+            j+=1
+    i+=1
+
+
+plt.plot(x,y, 'r.', markersize = 2.0)
+plt.show()
