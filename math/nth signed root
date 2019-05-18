@@ -1,0 +1,30 @@
+'''
+A straightforward function for computing nth rooths, or x^(1/n). which relies on a generalization of the babylonian method
+
+This root will never return complex numbers. It instead ignores the sign of negative numbers, treats them as posisitve, 
+and adds the sign back on at the end. Thus, signed_root(-4,2) = -2 instead of 2i.
+
+Convergence is pretty good after 12 iterations, so I stopped it there.
+
+'''
+
+def signed_root(a,r):
+    assert type(r) is int, 'the second argument must be an integer!'
+    
+    sign=0
+    
+    if a<0:
+        sign = -1
+    elif a>0:
+        sign = 1
+        
+    a = abs(a)   #removes the sign
+    
+    # square root is r=2
+    guess = float(a/r)
+    for _ in range(0,12):    #12 iterations seem to be enough
+        root = a/guess**(r-1)
+        midpoint = ((r-1)*guess + root)/r
+        guess = midpoint
+    
+    return root*sign
